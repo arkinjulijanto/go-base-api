@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 )
@@ -30,6 +31,10 @@ type Config struct {
 	JWT_EXPIRED string
 	JWT_ISSUER  string
 	JWT_SECRET  string
+
+	LOG_STDOUT bool
+	LOG_LEVEL  string
+	LOG_PATH   string
 }
 
 func LoadEnv() {
@@ -40,6 +45,11 @@ func LoadEnv() {
 }
 
 func GetEnv() Config {
+	logStdout, err := strconv.ParseBool(os.Getenv("LOG_STDOUT"))
+	if err != nil {
+		log.Println(err)
+	}
+
 	cfg := Config{
 		APP_HOST:      os.Getenv("APP_HOST"),
 		APP_PORT:      os.Getenv("APP_PORT"),
@@ -60,6 +70,9 @@ func GetEnv() Config {
 		JWT_EXPIRED:   os.Getenv("JWT_EXPIRED"),
 		JWT_ISSUER:    os.Getenv("JWT_ISSUER"),
 		JWT_SECRET:    os.Getenv("JWT_SECRET"),
+		LOG_STDOUT:    logStdout,
+		LOG_LEVEL:     os.Getenv("LOG_LEVEL"),
+		LOG_PATH:      os.Getenv("LOG_PATH"),
 	}
 
 	return cfg
