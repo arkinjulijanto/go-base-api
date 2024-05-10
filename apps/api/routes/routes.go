@@ -19,4 +19,5 @@ func InitRoutes(r *gin.Engine, h *handlers.Handler) {
 	api := r.Group("/api")
 
 	api.POST("/register", h.Register)
+	api.POST("/login", h.Login)
 }

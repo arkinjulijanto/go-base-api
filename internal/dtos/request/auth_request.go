@@ -13,3 +13,15 @@ func (r *RegisterRequest) ConvertToModel() *models.User {
 		Password: r.Password,
 	}
 }
+
+type LoginRequest struct {
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
+func (l *LoginRequest) ConvertToModel() *models.User {
+	return &models.User{
+		Username: l.Username,
+		Password: l.Password,
+	}
+}

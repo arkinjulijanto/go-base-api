@@ -28,7 +28,7 @@ type Config struct {
 	REDIS_PORT string
 	REDIS_PASS string
 
-	JWT_EXPIRED string
+	JWT_EXPIRED int
 	JWT_ISSUER  string
 	JWT_SECRET  string
 
@@ -50,6 +50,11 @@ func GetEnv() Config {
 		log.Println(err)
 	}
 
+	jwtExpired, err := strconv.Atoi(os.Getenv("JWT_EXPIRED"))
+	if err != nil {
+		log.Println(err)
+	}
+
 	cfg := Config{
 		APP_HOST:      os.Getenv("APP_HOST"),
 		APP_PORT:      os.Getenv("APP_PORT"),
@@ -67,7 +72,7 @@ func GetEnv() Config {
 		REDIS_HOST:    os.Getenv("REDIS_HOST"),
 		REDIS_PORT:    os.Getenv("REDIS_PORT"),
 		REDIS_PASS:    os.Getenv("REDIS_PASS"),
-		JWT_EXPIRED:   os.Getenv("JWT_EXPIRED"),
+		JWT_EXPIRED:   jwtExpired,
 		JWT_ISSUER:    os.Getenv("JWT_ISSUER"),
 		JWT_SECRET:    os.Getenv("JWT_SECRET"),
 		LOG_STDOUT:    logStdout,

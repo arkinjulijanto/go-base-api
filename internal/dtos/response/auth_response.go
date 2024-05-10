@@ -9,3 +9,13 @@ type RegisterResponse struct {
 func (r *RegisterResponse) FormatResponse(u *models.User) {
 	r.Username = u.Username
 }
+
+type LoginResponse struct {
+	Username string `json:"username"`
+	Token    string `json:"token"`
+}
+
+func (l *LoginResponse) FormatResponse(u *models.User, token string) {
+	l.Username = u.Username
+	l.Token = token
+}
