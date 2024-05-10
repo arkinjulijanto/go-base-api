@@ -16,5 +16,7 @@ func InitRoutes(r *gin.Engine, h *handlers.Handler) {
 		})
 	})
 
-	r.POST("/register", h.Register)
+	api := r.Group("/api")
+
+	api.POST("/register", h.Register)
 }
