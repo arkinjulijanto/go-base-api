@@ -15,6 +15,7 @@ func InitApi() error {
 	conf := config.GetEnv()
 	r := gin.Default()
 	r.Use(gin_util.RequestIDMiddleware)
+	r.Use(gin.Recovery())
 
 	logger.Init(conf)
 	err := base.InitDB(conf)
@@ -25,6 +26,7 @@ func InitApi() error {
 	h := handlers.InitHandlers()
 
 	routes.InitRoutes(r, h)
+	r.NoRoute(h.NoRoute)
 
 	err = r.Run(conf.APP_PORT)
 	if err != nil {
